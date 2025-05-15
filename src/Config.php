@@ -1,6 +1,6 @@
 <?php
 
-namespace Glaezz\Okeconenct;
+namespace Glaezz\Okeconnect;
 
 /**
  * Okeconnect Configuration
@@ -15,11 +15,11 @@ class Config
      */
     public static $merchantId;
     /**
-     * Your account pin
+     * Your merchant pin
      * 
      * @static
      */
-    public static $accountPin;
+    public static $merchantPin;
     /**
      * Your account password
      * 
@@ -48,8 +48,15 @@ class Config
      */
     public static function getBaseUrl()
     {
-        Config::TRANSACTION_BASE_URL;
+        return Config::TRANSACTION_BASE_URL;
         // return Config::$isProduction ?
         // Config::PRODUCTION_BASE_URL : Config::SANDBOX_BASE_URL;
+    }
+
+    public static function load(array $config)
+    {
+        self::$merchantId = $config['merchantId'] ?? null;
+        self::$merchantPin = $config['merchantPin'] ?? null;
+        self::$accountPassword = $config['accountPassword'] ?? null;
     }
 }

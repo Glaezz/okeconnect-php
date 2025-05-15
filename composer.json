@@ -2,7 +2,7 @@
     "name": "glaezz/okeconnect-php",
     "description": "PHP client for okeconnect API",
     "type": "library",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "license": "MIT",
     "authors": [
         {
@@ -16,15 +16,16 @@
         "ext-json": "*",
         "ext-openssl": "*"
     },
-    "require-dev": {
-        "phpunit/phpunit": "5.7.*",
-        "psy/psysh": "0.4.*"
-    },
     "autoload": {
         "psr-4": {
             "Glaezz\\Okeconnect\\": "src/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Glaezz\\Okeconnect\\OkeconnectServiceProvider"
+            ]
+        }
     }
 }
-
-
