@@ -11,7 +11,7 @@ class OkeconnectServiceProvider extends ServiceProvider
         // publish config
         $this->publishes([
             __DIR__ . '/../config/okeconnect.php' => config_path('okeconnect.php'),
-        ], 'config');
+        ], 'okeconnect-config');
 
         // set ke static class config
         Config::load(config('okeconnect'));
