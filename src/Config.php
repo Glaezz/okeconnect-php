@@ -39,7 +39,14 @@ class Config
      */
     public static $curlOptions = array();
 
-    const TRANSACTION_BASE_URL = 'https://h2h.okeconnect.com/trx';
+    /**
+     * Okeconnect API URL
+     * 
+     * @static
+     */
+    public static $serverUrl;
+
+    const TRANSACTION_BASE_URL = 'https://h2h.okeconnect.com';
 
     /**
      * Get baseUrl
@@ -48,7 +55,7 @@ class Config
      */
     public static function getBaseUrl()
     {
-        return Config::TRANSACTION_BASE_URL;
+        return Config::$serverUrl . "/trx";
         // return Config::$isProduction ?
         // Config::PRODUCTION_BASE_URL : Config::SANDBOX_BASE_URL;
     }
@@ -58,5 +65,6 @@ class Config
         self::$merchantId = $config['merchantId'] ?? null;
         self::$merchantPin = $config['merchantPin'] ?? null;
         self::$accountPassword = $config['accountPassword'] ?? null;
+        self::$serverUrl = $config['serverUrl'] ?? null;
     }
 }
