@@ -30,14 +30,14 @@ return [
     */
     'accountPassword' => env('OKECONNECT_ACCOUNT_PASSWORD'),
 
-    /*
-    |--------------------------------------------------------------------------
-    | Okeconnect server url
-    |--------------------------------------------------------------------------
-    |
-    | server url untuk transaksi Okeconnect. 
-    | default: https://h2h.okeconnect.com/trx
-    |
-    */
-    'serverUrl' => env('OKECONNECT_SERVER_URL', 'https://h2h.okeconnect.com'),
+        /*
+        |--------------------------------------------------------------------------
+        | Okeconnect server url
+        |--------------------------------------------------------------------------
+        |
+        | server url untuk transaksi Okeconnect. 
+        | default: https://h2h.okeconnect.com/trx
+        |
+        */
+        'serverUrl' => env('OKECONNECT_SERVER_URL', 'https://h2h.okeconnect.com'),
 ];

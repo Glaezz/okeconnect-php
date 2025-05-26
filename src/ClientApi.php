@@ -48,7 +48,7 @@ class ClientApi
      * @return mixed
      * @throws Exception
      */
-    public static function CreateTransaction($productCode, $destination, $referenceId, $amount = 0)
+    public static function createTransaction($productCode, $destination, $referenceId, $amount = 0)
     {
         if (preg_match('/^BBS/', $productCode)) {
 
@@ -120,14 +120,15 @@ class ClientApi
      * Get transaction status. (Conditional use, dont use for your history transaction. save every transaction to your database!)
      *
      * @param string productCode - code for the product. (example: "T5", "S20", "SM20")
-     * @param int referenceId - unique reference ID of the transaction (from your system). (example: 98710 or "trx-1")
      * @param int destination - destination number of the product. (example: 088123456789)
+     * @param int referenceId - unique reference ID of the transaction (from your system). (example: 98710 or "trx-1")
      * @param int amount - quantity of the product. ONLY FOR OPEN DENOM TRANSACTION (minimum 10000)
      * @return mixed
      * @throws Exception
      */
-    public static function getTransactionStatus($productCode, $referenceId, $destination, $amount = 0)
+    public static function getTransactionStatus($productCode, $destination, $referenceId, $amount = 0)
     {
+        
         if (preg_match('/^BBS/', $productCode)) {
             $arr_validate = array(
                 'product_code' => $productCode,
@@ -135,12 +136,12 @@ class ClientApi
                 'reference_id' => $referenceId,
                 'amount' => $amount,
             );
-
+            
             $validator = Helper::validator($arr_validate);
             if ($validator["status_code"] != 200) {
                 return $validator;
             }
-
+            
             $payloads = array(
                 'memberID' => Config::$merchantId,
                 'pin' => Config::$merchantPin,
@@ -198,35 +199,44 @@ class ClientApi
     /**
      * Callback handler for Okeconnect transaction.
      *
-     * @param string $callbackData - callback data from Okeconnect
+     * @param string $callbackData - message parameter from Okeconnect callback.
      * @return mixed
      * @throws Exception
      */
-    public static function CallbackHandler($callbackData)
-    {
+    public static function callbackHandler($callbackData)
+    {   
+        
         $callback = Helper::responseParser($callbackData, "callback");
-        if (empty($callback)) {
-            throw new Exception("Invalid callback data");
+
+        if (preg_match('/^BBS/', $callback['product']['code'])) {
+            return [
+                "status_code" => 500,
+                "message" => "Callback not compatible with open denomination product",
+                "data" => $callback,
+            ];
         }
 
-
-        $check = self::getTransactionStatus($callback['product']['code'], $callback['reference_id'], $callback['destination'], $callback['product']['amount']);
+        $check = self::getTransactionStatus($callback['product']['code'], $callback['destination'], $callback['reference_id'], $callback['product']['amount']);
 
 
         if ($check['status_code'] != 200) {
-            throw new Exception("Transaction not found, please check your transaction");
+            return $check;
         }
 
-
         if ($check['reference_id'] == $callback['reference_id']) {
-
             if ($check['transaction_status'] == $callback['transaction_status']) {
                 return $callback;
             } else {
-                throw new Exception("Transaction status not match, please check your transaction status");
+                return [
+                    "status_code" => 400,
+                    "message" => "Transaction status not match",
+                ];
             }
         } else {
-            throw new Exception("Reference ID not match, please check your reference ID");
+            return [
+                "status_code" => 400,
+                "message" => "Reference ID not match",
+            ];
         }
     }
 }
