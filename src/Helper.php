@@ -230,7 +230,7 @@ class Helper
      */
     public static function responseParser($text, $state)
     {
-        if ($text == "Too short") {
+        if ($text == "Too short" || $text == 'Pengguna tidak ditemukan') {
             return ['status_code' => 401, 'message' => 'Transaction cannot be authorized with the current merchant ID'];
         }
         if (preg_match('/\bPin Salah\b/i', $text)) {
