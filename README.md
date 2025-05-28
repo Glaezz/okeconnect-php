@@ -1,6 +1,27 @@
-Okeconnect-PHP
-===============
+# Okeconnect-PHP
 
+**Unofficial PHP wrapper/library for Okeconnect Transaction API** with built-in input validator, response parser to associative array, and enhanced security. Fully compatible with Composer.
 
-Unofficial PHP wrapper/library for Okeconnect Transaction API with built in validator, parser to assoc array, and greater security. Compatible with Composer. Visit [https://okeconnect.com](https://okeconnect.com) for account and product information. see documentation at [https://okeconnect-docs.fieza.my.id]([https://docs.midtrans.com](https://okeconnect-docs.fieza.my.id)) for more technical details.
+🔗 Visit [Okeconnect](https://okeconnect.com) to create an account and view available products.  
+📚 Full documentation: [docs-okeconnect-php.vercel.app](https://docs-okeconnect-php.vercel.app)
 
+---
+
+## 🚀 Overview
+
+This package simplifies integration with the Okeconnect API by wrapping key features with convenience functions and security enhancements.
+
+### ✅ Features
+
+- 🔐 **Greater security**
+- 📥 **Input validation**
+- 📤 **Structured response parser (to associative arrays)**
+- ⚙️ **Flexible configuration for Laravel and PHP Native**
+- 🧪 **Built-in callback handler**
+
+---
+
+## 📄 License
+
+MIT License © Fieza Rausyan Al Ghifari  
+📧 [fiezarausyan@gmail.com](mailto:fiezarausyan@gmail.com)
