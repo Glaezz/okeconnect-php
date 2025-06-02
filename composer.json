@@ -2,7 +2,7 @@
     "name": "glaezz/okeconnect-php",
     "description": "PHP client for okeconnect API",
     "type": "library",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "license": "MIT",
     "authors": [
         {
